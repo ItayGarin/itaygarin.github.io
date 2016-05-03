@@ -1,5 +1,6 @@
 # External Gems
 gems: 						[jekyll-paginate]
+exclude: [node_modules, gulpfile.js]
 
 
 # Site Settings
