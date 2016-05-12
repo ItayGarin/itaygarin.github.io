@@ -85,7 +85,7 @@ These symlinks are placed in the parent directory relative to your current worki
 
 That's the simplest use case and the one we'll utilize.
 
-With that said, let's setup `~/dotfiles -   
+With that said, let's setup `~/dotfiles` -   
 (Before continuing, *PLEASE* make sure to backup your dotfiles!)
 
 ```shell
