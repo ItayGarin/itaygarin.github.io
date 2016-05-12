@@ -7,7 +7,7 @@ exclude: [node_modules, gulpfile.js]
 title: 						"Garin.IO"
 email: 						"itay.garin@gmail.com"
 description: 			"Your Guide to a World Full of Bits"
-baseurl: 					""
+baseurl: 					"http://www.garin.io"
 logourl: 					"/assets/img/author.jpg"
 fa-logo: 					"fa-bookmark-o"
 paginate: 				5
