@@ -6,11 +6,11 @@ comments: false
 ---
 
 Hello!   
-This is Itay Garin. Welcome to my personal blog!
+I'm Itay Garin. Welcome to my personal blog!
 
 I'll be regularly posting on various topics that are of interest to me.
 But mainly on the low-level computing world.
-More specifically, on embedded R&D, operation systems and systems programming.
+More specifically, on embedded R&D, operation systems, and systems programming.
 
 Additionally, I'll probably discuss my professional workflow, brag about my awesome Emacs config, and elaborate on my side projects.
 
