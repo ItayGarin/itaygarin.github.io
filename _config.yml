@@ -16,8 +16,8 @@ paginate: 				5
 # Author Settings
 author_name: 				"Itay Garin"
 author_url: 				"http://garin.io"
-author_bio: 				"Itay is a developer and researcher who solves low-level challenges.
-He loves to tinker with electronics, fiddle with his Emacs config, and learn new technologies."
+author_bio: 				"Itay is a developer and a researcher who's passionate about solving low-level challenges.
+He loves to tinker with electronics, to optimize his Emacs config, and to learn new technologies."
 author_email: 			"itay.garin@gmail.com"
 author_image: 			"/assets/img/author.jpg"
 
