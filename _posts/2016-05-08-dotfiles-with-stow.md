@@ -21,6 +21,8 @@ A concise tutorial on how to do what you know you should do...
 
 <!-- markdown-toc end -->
 
+<img src="http://www.gnu.org.ua/graphics/winkler-gnu.png" width="600">
+
 ## Prologue 
 
 This tutorial is intended to be a very short and concise guide on how to manage your dotfiles with [GNU Stow](https://www.gnu.org/software/stow/).
