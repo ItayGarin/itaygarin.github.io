@@ -21,7 +21,6 @@ It's much harder to shot yourself in the foot with Rust :)
     - [NULL Dereference](#null-dereference)
     - [Use After Free](#use-after-free)
     - [Returning Dangling Pointers](#returning-dangling-pointers)
-    - [Integer Overflows (and Underflows)](#integer-overflows-and-underflows)
     - [Out Of Bounds Access](#out-of-bounds-access)
 - [Conclusion](#conclusion)
 
@@ -256,43 +255,6 @@ fn get_static_string() -> &'static str {
 // A static lifetime simply means that it'll live for the entire duration of the program
 ```
 
-## Integer Overflows (and Underflows)
-
-It is safe to assume that most C/C++ developers had to deal with an integer overflow caused bug at least once.
-It's very easy to introduce, and can smoothly slip under the code-review "radar".
-
-For those who've never heard of this phenomenon, here's a short explanation.
-An [Integer Overflow](https://en.wikipedia.org/wiki/Integer_overflow) occurs when an arithmetic operation attempts to create a numeric value that is too large to be represented within the available storage space.
-
-For example, in C/C++,  
-if we'd attempt to return 256 via an 8-bit register, we'd actually end up returning 0.
-
-### C/C++
-
-```c
-uint8_t overflows(void) {
-    return 255 + 1;
-} 
-
-// returns 0
-``` 
-
-Rust, being the safe language that it is, flags this behavior as erroneous.
-i.e it treats integer overflows and underflows as bugs.
-
-Thus, to ward off this incidental behavior, the Rust team employed run-time checks on integer types.
-If the check fails, a "[panic](https://doc.rust-lang.org/std/macro.panic!.html)" is triggered, and the program will be aborted.
-
-### Rust
-
-```rust
-fn overflow_panics() -> u8 {
-    255 + 1
-}
-
-// thread '<main>' panicked at 'arithmetic operation overflowed', main.rs:2
-``` 
-
 ## Out Of Bounds Access
 
 ### C/C++
@@ -301,7 +263,7 @@ Another very common pitfall is accessing memory that isn't owned by you.
 More often than not, that simply means accessing an array with an index that's out of range.
 This applies to read and write operations alike.
 
-Like the "Use After Free" pitfall, accessing out-of-bounds memory can introduce nasty vulnerabilities into your executable.
+Accessing out-of-bounds memory can introduce nasty vulnerabilities into your executable.
 Again, these vulnerabilities might allow an attacker to execute arbitrary code on your client's computer (see Buffer Overflows).
 
 Probably the most well-known out-of-bounds access vulnerability in recent times is [Heartbleed](https://en.wikipedia.org/wiki/Heartbleed).
@@ -322,7 +284,7 @@ void print_out_of_bounds(void) {
 
 ### Rust
 
-Again, Rust makes use of run-time checks to mitigate this unwanted behavior.
+In this case, Rust makes use of run-time checks to mitigate this unwanted behavior.
 I must admit, this non-glamorous feature put a smile on my face the first time I stumbled upon it.
 
 Here's the same example in Rust -
