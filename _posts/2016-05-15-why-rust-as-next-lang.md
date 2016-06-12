@@ -42,6 +42,8 @@ Rust is a solid example of the latter.
 It has a unique way of hermetically dealing with memory safety, 
 while letting you maintain full control of the bits and bytes.
 
+<img src="http://www.rustacean.net/assets/rustacean-orig-happy.png" width="400">
+
 ## What I was looking for
 
 Currently, I'm mostly making use of C and Python for my daily work.
@@ -97,6 +99,8 @@ Although Go and D are the most mature and popular out of the bunch, they were dr
 
 ### Why I dropped Go
 
+<img src="http://www.evanmiller.org/images/go-gopher3.png" width="350">
+
 Go was dropped for several reasons. 
 Feature-wise, it seemed quite lacking when compared to the others.
 I believe that's because the authors tried to capture C's spirit.
@@ -112,6 +116,8 @@ Also, it impairs the language's ability to provide a proper foreign function int
 
 ### Why I dropped D
 
+<img src="https://dlang.org/images/compiler-dmd.png" width="250">
+
 Honestly, D was dropped for coincidental reasons.
 
 It is certainly the most adopted of the lot, but for some reason, it doesn't feel that way.
@@ -122,6 +128,8 @@ Maybe that's because people rarely mention it. Maybe because it never reaches po
 Who knows...
 
 ## Nim vs Rust
+
+<img src="https://raw.githubusercontent.com/nim-lang/assets/master/Art/logo-crown.png" width="250">
 
 Amusingly, I initially picked up Nim.
 
@@ -151,6 +159,8 @@ I'll probably give it another go once it reaches a stable major version.
 Stay tuned for that :)
 
 ## Rust is the Winner
+
+<img src="https://s3.amazonaws.com/media-p.slid.es/uploads/148132/images/1453632/rusthungary-transparent.png" width="400">
 
 By the process of elimination, I was left with Rust.
 
