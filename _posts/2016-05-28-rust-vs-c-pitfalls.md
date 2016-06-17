@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Rust vs C/C++ Pitfalls"
+title: "Rust vs C Pitfalls"
 categories: Rust
 featured: false
 comments: true
@@ -40,7 +40,7 @@ Doing that has several benefits -
 3. I enjoy discussing and presenting new technologies :)
 
 For us, Rust's biggest selling point is its safety guarantees.
-It's a significant advantage over C/C++ (which we're writing daily).
+It's a significant advantage over C (which we're writing daily).
 It's also the core idea that makes Rust such a unique language.
 So that's what I'll be focusing on in my talk.
 
@@ -48,7 +48,7 @@ I figured that the best strategy to present this merit would be to show my colle
 Rust will make their daily work easier and more enjoyable.
 
 Specifically, demonstrating how Rust completely eliminates many pitfalls
-that are inherent to C and C++.
+that are inherent to C.
 That promise, combined with its modern features, yields an ergonomic experience
 with much fewer bugs to tackle.
 
@@ -81,12 +81,12 @@ However, this comes with a price. It means that the compiler will no longer prot
 
 ## NULL Dereference
 
-The infamous [Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault) error is a common sight in the realm of C and C++.
+The infamous [Segmentation Fault](https://en.wikipedia.org/wiki/Segmentation_fault) error is a common sight in the realm of C.
 If I had to guess, I'd say that [NULL dereferences](https://www.owasp.org/index.php/Null_Dereference) are the number one cause of these faults.
 
 Dereferencing NULL usually happens when you forget to check the validity of a returned pointer - 
 
-### C/C++
+### C
 
 ```c
 uint8_t* pointer = (uint8_t*) malloc(SIZE); // Might return NULL
@@ -120,7 +120,7 @@ through your executable.
 
 Here's a simple example of user after free in C -
 
-### C/C++
+### C
 
 ```c
 uint8_t* pointer = (uint8_t*) malloc(SIZE);
@@ -200,7 +200,7 @@ fn bar() {
 
 ## Returning Dangling Pointers
 
-Seasoned C/C++ programs know that returning a pointer to a stack-bound variable is bad.
+Seasoned C programmers know that returning a pointer to a stack-bound variable is bad.
 By the time it gets to the caller, the stack frame will be long gone.
 Thus, the returned pointer will point to undefined memory.
 
@@ -210,7 +210,7 @@ making this error will become very unlikely.
 
 Here's an example in C -
 
-### C/C++
+### C
 
 ```c
 uint8_t* get_dangling_pointer(void) {
@@ -226,7 +226,7 @@ uint8_t* get_dangling_pointer(void) {
 As it turns out, Rust's [lifetime](https://doc.rust-lang.org/book/lifetimes.html) checks apply to more than just locally defined variables.
 They also apply to returned values. 
 
-In contrast to C and C++, when returning a reference, the Rust compiler makes sure that it will remain valid when it finally reaches the caller.
+In contrast to C, when returning a reference, the Rust compiler makes sure that it will remain valid when it finally reaches the caller.
 i.e., the compiler verifies that the returned reference will **live** long enough.
 Thus, it can be said that Rust references ALWAYS point to valid memory.
 
@@ -257,8 +257,6 @@ fn get_static_string() -> &'static str {
 
 ## Out Of Bounds Access
 
-### C/C++
-
 Another very common pitfall is accessing memory that isn't owned by you.
 More often than not, that simply means accessing an array with an index that's out of range.
 This applies to read and write operations alike.
@@ -270,6 +268,8 @@ Probably the most well-known out-of-bounds access vulnerability in recent times 
 Check out this article - [Would Rust have prevented Heartbleed? Another look](https://tonyarcieri.com/would-rust-have-prevented-heartbleed-another-look)
 
 Here's a simple<sup>*</sup> example that illustrates this bug.
+
+### C
 
 ```c
 void print_out_of_bounds(void) {
