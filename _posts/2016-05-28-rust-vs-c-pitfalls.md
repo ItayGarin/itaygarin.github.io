@@ -86,14 +86,14 @@ If I had to guess, I'd say that [NULL dereferences](https://www.owasp.org/index.
 
 Dereferencing NULL usually happens when you forget to check the validity of a returned pointer - 
 
-### C
-
 ```c
 uint8_t* pointer = (uint8_t*) malloc(SIZE); // Might return NULL
 for(int i = 0 ; i < SIZE ; ++i) {
     pointer[i] = i; // Might cause a Segmentation Fault
 }
 ``` 
+
+#### *Rust*
 
 Rust's method of dealing with these pointer errors is extreme.
 It simply **forbids** the use of raw pointers in "safe" code.
@@ -103,8 +103,6 @@ But, you shouldn't worry. There's an elegant alternative.
 Instead of pointers, Rust allows you to [borrow references](https://doc.rust-lang.org/book/references-and-borrowing.html) to variables.
 Under the hood, these references are essentially the same good old pointers. 
 But, they are made safe with the [Lifetimes](https://doc.rust-lang.org/book/lifetimes.html) and [Borrowing](https://doc.rust-lang.org/book/references-and-borrowing.html) rules.
-
-### Rust
 
 ```rust
 let my_var: u32 = 42;
@@ -119,8 +117,6 @@ That's because it can be a serious vulnerability that might allow attackers to e
 through your executable.
 
 Here's a simple example of user after free in C -
-
-### C
 
 ```c
 uint8_t* pointer = (uint8_t*) malloc(SIZE);
@@ -137,65 +133,98 @@ if (err) {
 if (abort) {
   logError("operation aborted before commit", pointer);
 }
-
-// 
-//
 ``` 
 
-The Rust solution here will be intuitive to C++ developers.
-It uses the [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) approach everywhere (Resources Acquisition Is Initialization).
+#### *Rust*
 
-This means that the [lifetime](https://doc.rust-lang.org/book/lifetimes.html) of a variable is defined in terms of its **scope**.
-i.e Every variable is deterministically freed when it goes out of scope (= a pair of curly braces).
+Like C++, Rust uses the [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) approach everywhere (Resources Acquisition Is Initialization). 
+
+That means that every variable is deterministically freed when it goes out of scope (= a pair of curly braces).
 So with "safe" Rust, you NEVER need to worry about freeing memory.
 
-### Rust
-
 ```rust 
-fn foo() {
-    let staying_alive = 42;
-    ^
-    |
-    | a lifetime
-    |
-    |
-    V
-} // `staying_alive` will be freed once we get here
-``` 
-
-```rust 
-fn bar() {
-    let foobar = 0;
-    {
-      let staying_alive = 42;
-      ^
-      |
-      | another lifetime
-      |
-      |
-      V
-    } // `staying_alive` will be freed once we get here
-    
-    println!("foobar = {}", foobar);
-} 
+fn foobar() {
+    let foo = Hashmap::new();
+^  
+|  
+|   {
+|   let bar = Vec::new();
+|   ^
+|   |
+|   | 
+|   |
+|   |
+|   V
+|   } // `bar` will be freed once we get here
+|  
+V  
+} // `foo` will be freed once we get here
 ``` 
 
 But Rust doesn't stop there. It goes a crucial step further.
-In Rust, the compiler is fully aware of these lifetimes.
 It won't let you access memory that was freed!
+That's enforced via the [Ownership](https://doc.rust-lang.org/book/ownership.html) rules.
+
+In Rust, variables have a property that's called [Ownership](https://doc.rust-lang.org/book/ownership.html).
+
+An owner has the rights to use its data freely. Also, it can lend its data for a limited lifetime (= [Borrowing](https://doc.rust-lang.org/book/references-and-borrowing.html)).
+
+Moreover, data can only have a single owner. Thus, the scope of the owner dictates where the data will be freed (via [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)).
+
+Finally, ownership can be "moved". [Moving](https://doc.rust-lang.org/book/ownership.html#move-semantics) an ownership happens when you assign it into a different variable. Like so -
+
 
 ```rust 
-fn bar() {
-    let foobar = 0;
+let foo = Hashmap::new();
+{
     {
-        let staying_alive = 42;
-    }
-    println!("staying_alive = {}", staying_alive);
+       let bar = foo; // foo's ownership has been moved!
+    } // the Hashmap will be freed here
 }
+``` 
 
-// main.rs:16:36: 16:49 error: unresolved name `staying_alive` [E0425]
-// main.rs:16     println!("staying_alive = {}", staying_alive);
-//                                               ^~~~~~~~~~~~~
+[Moving](https://doc.rust-lang.org/book/ownership.html#move-semantics) an ownership also happens when you pass a variable to a function. Like so -
+
+```rust 
+let foo = Hashmap::new();
+{
+    {
+       take_ownership(foo); // foo's ownership has been moved!
+      // the Hashmap will be freed at the end of `take_ownership`
+    }
+}
+``` 
+
+As you can probably guess by now, you **CAN'T** **use** data that has been **moved**.
+
+```rust 
+let foo = Vec::new();
+{
+    {
+        take_ownership(foo);
+    }
+}
+foo.push(42);
+
+// main.rs:7:5: 10:8 error: use of moved value: `foo` [E0382]
+// main.rs:7     foo.push(42);
+//               ^~~
+``` 
+
+#### *P.S* 
+
+Types that implement the [Copy](https://doc.rust-lang.org/book/ownership.html#copy-types) trait will be copied instead.
+For example the primitive integer types implement the `Copy` trait.
+
+
+```rust 
+let foo = 42;
+{
+    {
+        i_copy(foo);
+    }
+}
+println!("{}", foo); // foo still owns the data
 ``` 
 
 ## Returning Dangling Pointers
@@ -210,8 +239,6 @@ making this error will become very unlikely.
 
 Here's an example in C -
 
-### C
-
 ```c
 uint8_t* get_dangling_pointer(void) {
     uint8_t array[4] = {0};
@@ -221,7 +248,7 @@ uint8_t* get_dangling_pointer(void) {
 // Returns a dangling pointer to a previously stack allocated memory
 ``` 
 
-### Rust
+#### *Rust*
 
 As it turns out, Rust's [lifetime](https://doc.rust-lang.org/book/lifetimes.html) checks apply to more than just locally defined variables.
 They also apply to returned values. 
@@ -269,8 +296,6 @@ Check out this article - [Would Rust have prevented Heartbleed? Another look](ht
 
 Here's a simple<sup>*</sup> example that illustrates this bug.
 
-### C
-
 ```c
 void print_out_of_bounds(void) {
     uint8_t array[4] = {0};
@@ -282,7 +307,7 @@ void print_out_of_bounds(void) {
 
 \* *it's worth mentioning that in most cases, this bug will manifest in much less obvious ways*
 
-### Rust
+#### *Rust*
 
 In this case, Rust makes use of run-time checks to mitigate this unwanted behavior.
 I must admit, this non-glamorous feature put a smile on my face the first time I stumbled upon it.
