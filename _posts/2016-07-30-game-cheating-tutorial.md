@@ -263,3 +263,23 @@ and exploring new possibilities.
 Please feel free to ask me any questions directly
 or in the comment section below.
 Also, Pull Requests are more than welcome :)
+
+**UPDATE 08/08/16** - <br/>
+I've had a [lovely discussion](https://www.reddit.com/r/programming/comments/4wk9ge/game_cheating_tutorial_godmode_in_gba_pokemon) with [u/hdt80](https://www.reddit.com/user/hdt80) after this post.
+I've explained how I'd go about finding and implementing a "walk through walls" cheat. You are welcome to [check that out](https://www.reddit.com/r/programming/comments/4wk9ge/game_cheating_tutorial_godmode_in_gba_pokemon).
+<br/>
+
+## Further Reading
+
+[People have been asking me](https://www.reddit.com/r/programming/comments/4wk9ge/game_cheating_tutorial_godmode_in_gba_pokemon) for more resources on this topic.
+I'm truly happy to see this. If I got you to explore this field, then I've accomplished my goal.
+
+The following is a brief list that should get you started.
+Pick and choose whatever resonates with you and keep on digging deeper from there.
+
+* The [Game Hacking](https://www.nostarch.com/gamehacking) Book
+* [Reverse Engineering for Beginners](http://beginners.re/) - A very comprehensive book on RE
+* [OverTheWire](http://overthewire.org/wargames/) and [Microcorruption](https://microcorruption.com/) CTFs - Great for honing your static and dynamic reversing skills.
+* [Cheat Engine Tutorials](https://www.google.co.il/search?q=cheat+engine+tutorial) - For additional free tutorials like this one
+* [Learn C The Hard Way](http://c.learncodethehardway.org/book/) - Useful if you feel like you could improve your C chops
+
