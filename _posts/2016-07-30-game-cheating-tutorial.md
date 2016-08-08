@@ -175,7 +175,7 @@ we might do the following -
 3: >>> ram_addr, ram_size = (0x02000000, 1024 * 256)
 4: >>> pattern = "\x00\x64"
 5: >>> first_match = inferior.search_memory(ram_addr, ram_size, pattern)
-   >>> hex(first_occurrence)
+   >>> hex(first_match)
 6: '0x20040e7L
 ```
 
