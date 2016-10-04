@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "How to Manage Your Dotfiles with GNU Stow"
-categories: Tutorial
 featured: false
 comments: true
 ---

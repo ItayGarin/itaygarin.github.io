@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Game Cheating Tutorial (Part 2): Pokemon Strings Adventures"
-categories: Tutorial
 featured: false
 comments: true
 ---

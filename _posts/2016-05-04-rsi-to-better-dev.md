@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "How Repetitive Strain Injury (RSI) Can Make You a Better Developer"
-categories: Workflow
 featured: false
 comments: true
 ---

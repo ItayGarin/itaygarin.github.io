@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Why I Picked Rust as my next Programming Language"
-categories: Rust
 featured: false
 comments: true
 ---

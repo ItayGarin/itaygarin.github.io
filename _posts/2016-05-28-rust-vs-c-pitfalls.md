@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Rust vs C Pitfalls"
-categories: Rust
 featured: false
 comments: true
 ---

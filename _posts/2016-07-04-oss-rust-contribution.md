@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "Picking a Rust Project to Contribute to"
-categories: Rust
 featured: false
 comments: true
 ---

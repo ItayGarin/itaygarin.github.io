@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Game Cheating Tutorial: God-Mode in GBA Pokemon"
-categories: Tutorial
 featured: false
 comments: true
 ---
